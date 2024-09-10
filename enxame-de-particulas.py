@@ -69,7 +69,7 @@ def algoritmo_vizinho_mais_proximo(pontos):
     return caminho, distancia_total
 
 # Função principal enxame                                #tolerancia de quantas rotas nao tiveram nenhuma melhoria
-def enxame(pontos, num_particulas=100, max_iter=5000, tolerancia=2000, i_inter=500): #iteracoes para poder aplicar o vizinho mais proximo
+def enxame(pontos, num_particulas=100, max_iter=5000, tolerancia=1000, i_inter=500): #iteracoes para poder aplicar o vizinho mais proximo
     ids_pontos = list(pontos.keys())
     particulas = [np.random.permutation(ids_pontos).tolist() for _ in range(num_particulas)]
     rotas_verificadas = set(tuple(p) for p in particulas)
