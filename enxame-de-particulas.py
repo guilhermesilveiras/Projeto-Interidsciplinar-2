@@ -83,11 +83,11 @@ def enxame(pontos, num_particulas=100, max_iter=5000, tolerancia=1500, i_inter=5
     
     # Loop sobre as iterações
     for iteracao in range(max_iter):
-        if c >= tolerancia:
+        if c >= tolerancia:  #verificacao se a tolerancia nao foi atingida para para de rodar o codigo(verifica se ja achou um resultado otimo)
             break
         
-        #tolerancia de quantas rotas nao tiveram nenhuma melhoria
-        if iteracao % i_inter == 0:
+       
+        if iteracao % i_inter == 0: #a cada parametro do i_inter aplica o vizinho mais proximo(a cada multiplo de i_inter aplica o vizinho mais proximo)
             for i in range(num_particulas // 2):    #aplicar o vizinho mais próximo em metade das particulas, mantendo equilibrio entre diversidade para explorar e refinamento
                 rota_otimizada, custo_otimizado = algoritmo_vizinho_mais_proximo(pontos)
                 if custo_otimizado < melhor_custo_local[i]: #verificacao da rota nova localmente
@@ -102,14 +102,14 @@ def enxame(pontos, num_particulas=100, max_iter=5000, tolerancia=1500, i_inter=5
 
        #loop sobre as particulas para misturar a array
         for i in range(num_particulas):
-            nova_rota = inverter(particulas[i])
+            nova_rota = inverter(particulas[i]) #embaralhando as particulas(as rotas)
             if tuple(nova_rota) not in rotas_verificadas: #verificacao se ja foi vista
-                rotas_verificadas.add(tuple(nova_rota))
+                rotas_verificadas.add(tuple(nova_rota)) #adicionando em ja verificadas
                 custo_atual = custo_rota(nova_rota, pontos) #atualizacao do custo atual para verificar com o melhor local e global
                 if custo_atual < melhor_custo_local[i]: #verificacao local 
                     particulas[i] = nova_rota
                     melhor_custo_local[i] = custo_atual
-                    c = 0
+                    c = 0 #reinicia o contador se acha um resultado melhor que o custo local
                 else:
                     c += 1 #se nao for melhor adiciona um no contador, ou seja nao melhorou nada o melhor custo local
                 
